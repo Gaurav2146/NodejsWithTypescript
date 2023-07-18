@@ -1,9 +1,21 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 const app = express();
-import { orderRouter } from "./routes/order-route";
+import { OrderRouter } from "./routes/order-route";
+import { OrderController } from "./controller/order-controller";
 
-app.get('/create-order', orderRouter);
+//APIs
+app.use('/order', new OrderRouter(new OrderController("Rahul")).router);
+
+//Error Handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.log(err, "error");
+    if (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 
 app.listen(3000, () => {
     console.log("port running on port 3000");
 })
+
