@@ -21,7 +21,6 @@ class OrderController {
     }
 
     getId(): string {
-        this.setName("Gaurav");
         return this.getName();
     }
 
