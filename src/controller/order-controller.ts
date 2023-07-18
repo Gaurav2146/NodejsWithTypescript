@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import 'reflect-metadata';
+import { autoInjectable, container } from "tsyringe";
 
+@autoInjectable()
 class OrderController {
     name: string;
     static id: number = 5;
@@ -36,6 +39,11 @@ class OrderController {
         }
     }
 }
+
+//Registering container which is dependent on primitive value
+// This will work what @Bean annotation was doing in java for creation
+// of custom objects and registering it to IOC container
+container.registerInstance(OrderController, new OrderController("Raghav"))
 
 export {
     OrderController

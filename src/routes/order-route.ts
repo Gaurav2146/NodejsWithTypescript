@@ -1,6 +1,10 @@
 import { OrderController } from "../controller/order-controller";
 import { Router, Request, Response, NextFunction } from 'express';
 import { ApiRouter } from './ApiRouter';
+import 'reflect-metadata';
+import { autoInjectable } from "tsyringe";
+
+@autoInjectable()
 export class OrderRouter implements ApiRouter {
     router: Router
     private orderController: OrderController

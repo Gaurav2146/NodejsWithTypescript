@@ -1,12 +1,8 @@
 import App from './app';
-import { OrderController } from './controller/order-controller';
-import { OrderRouter } from './routes/order-route';
-
+import { allRoutes } from './routes/allRouts';
 
 const app = new App(
-    [
-        new OrderRouter(new OrderController("Rahul")),
-    ],
+    allRoutes.routes,
     4000,
 );
 
