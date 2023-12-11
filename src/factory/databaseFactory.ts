@@ -19,7 +19,7 @@ export class DatabaseFactory
             logging: true,
             synchronize: true,
             entities: [
-                "../../src/entity/User.ts"
+                "./src/entity/User.ts"
             ],
         })
         

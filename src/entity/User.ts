@@ -3,11 +3,11 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number | undefined
+    id: number
 
     @Column()
-    name: string | undefined
+    name: string
 
     @Column()
-    price: number | undefined
+    price: number
 }

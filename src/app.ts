@@ -1,7 +1,6 @@
 import express, { Router } from 'express';
 import * as bodyParser from 'body-parser';
 import { ApiRouter } from './routes/ApiRouter';
-import { DataSource } from "typeorm"
 import { DatabaseFactory } from './factory/databaseFactory';
 
 class App {
