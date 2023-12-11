@@ -1,8 +1,5 @@
-
-import { container } from "tsyringe";
-import { User } from "../entity/User-entity";
-import { DataSource } from "typeorm";
-const AppDataSource = container.resolve(DataSource);
+import { User } from "../entity/User";
+import {DatabaseFactory} from "../factory/databaseFactory";
 
 export class OrderService{
 
@@ -12,8 +9,8 @@ export class OrderService{
         user.name = name;
         user.price = price;
 
-        //return await AppDataSource.manager.save(user);
-        return AppDataSource.manager.create(User,{name:name,price:price});
+        return await DatabaseFactory.AppDataSource.manager.save(user);
+        //return DatabaseFactory.AppDataSource.manager.create(User,{name:name,price:price});
     }
 
 }

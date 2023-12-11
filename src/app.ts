@@ -3,8 +3,6 @@ import * as bodyParser from 'body-parser';
 import { ApiRouter } from './routes/ApiRouter';
 import { DataSource } from "typeorm"
 import { DatabaseFactory } from './factory/databaseFactory';
-import { container } from 'tsyringe';
-
 
 class App {
     public app: express.Application;
@@ -13,38 +11,14 @@ class App {
     constructor(routers: Array<ApiRouter>, port: number) {
         this.app = express();
         this.port = port;
-        this.initializeDatabase(routers);
+        this.initializeMiddlewares();
+        this.initializeRouters(routers);
+        this.initializeDatabase();
     }
 
-    private initializeDatabase(routers:Array<ApiRouter>)
+    private initializeDatabase()
     {
-        const AppDataSource = new DataSource({
-            type: "mysql",
-            host: "localhost",
-            port: 3306,
-            username: "root",
-            password: "Gau@9931",
-            database: "typeORM",
-            logging: true,
-            synchronize: true,
-            entities: [
-                "./entity/*.ts"
-            ],
-        })
-        
-        AppDataSource.initialize()
-            .then((dataSource:DataSource) => {
-                DatabaseFactory.setDataSource(dataSource);
-
-                container.registerInstance(DataSource, dataSource)
-
-                console.log("Data Source has been initialized!")
-                this.initializeMiddlewares();
-                this.initializeRouters(routers);
-            })
-            .catch((err:Error) => {
-                console.error("Error during Data Source initialization", err)
-            })
+        DatabaseFactory.setDataSource();
     }
 
     private initializeMiddlewares() {
