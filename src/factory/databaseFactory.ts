@@ -1,8 +1,9 @@
 import { DataSource } from "typeorm";
 
+//Singleton object creation
 export class DatabaseFactory
 {
-    static AppDataSource : DataSource;
+    private static AppDataSource : DataSource;
 
     private constructor()
     {}
@@ -31,6 +32,11 @@ export class DatabaseFactory
                 console.error("Error during Data Source initialization", err)
             })
 
+    }
+
+    static getDataSource()
+    {
+        return this.AppDataSource;
     }
 
 }

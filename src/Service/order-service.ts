@@ -9,7 +9,7 @@ export class OrderService{
         user.name = name;
         user.price = price;
 
-        return await DatabaseFactory.AppDataSource.manager.save(user);
+        return await DatabaseFactory.getDataSource().manager.save(user);
         //return DatabaseFactory.AppDataSource.manager.create(User,{name:name,price:price});
     }
 
