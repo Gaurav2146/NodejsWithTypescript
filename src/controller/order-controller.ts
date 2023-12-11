@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import 'reflect-metadata';
 import { autoInjectable, container } from "tsyringe";
+import {OrderService} from "../Service/order-service";
+const orderService = new OrderService();
 
 @autoInjectable()
 class OrderController {
@@ -27,11 +29,13 @@ class OrderController {
         return this.getName();
     }
 
-    createOrder(req: Request, res: Response, next: NextFunction) {
+    async createOrder(req: Request, res: Response, next: NextFunction) {
         try {
             let name = this.getId();
             let id = OrderController.getId();
-            res.status(200).json({ name: name, id: id });
+            
+            let order = await orderService.createOrder("Burger",149);
+            res.status(200).json({ order : order });
         }
         catch (error) {
             console.log("Catch ERROR")

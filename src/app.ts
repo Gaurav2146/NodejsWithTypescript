@@ -2,6 +2,9 @@ import express, { Router } from 'express';
 import * as bodyParser from 'body-parser';
 import { ApiRouter } from './routes/ApiRouter';
 import { DataSource } from "typeorm"
+import { DatabaseFactory } from './factory/databaseFactory';
+import { container } from 'tsyringe';
+
 
 class App {
     public app: express.Application;
@@ -12,7 +15,7 @@ class App {
         this.port = port;
         this.initializeDatabase(routers);
     }
-    
+
     private initializeDatabase(routers:Array<ApiRouter>)
     {
         const AppDataSource = new DataSource({
@@ -30,7 +33,11 @@ class App {
         })
         
         AppDataSource.initialize()
-            .then(() => {
+            .then((dataSource:DataSource) => {
+                DatabaseFactory.setDataSource(dataSource);
+
+                container.registerInstance(DataSource, dataSource)
+
                 console.log("Data Source has been initialized!")
                 this.initializeMiddlewares();
                 this.initializeRouters(routers);
