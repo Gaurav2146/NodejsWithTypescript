@@ -17,7 +17,7 @@ export class DatabaseFactory
             password: "root",
             database: "typeORM",
             logging: true,
-            synchronize: true,
+            synchronize: false,
             entities: [
                 "./src/entity/User.ts"
             ],
