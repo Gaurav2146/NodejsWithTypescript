@@ -1,3 +1,4 @@
+import { EntityManager } from "typeorm";
 import { User } from "../entity/User";
 import {DatabaseFactory} from "../factory/databaseFactory";
 
@@ -25,7 +26,7 @@ async createOrder(name:string,price:number)
         // SQL Server
 
         //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
-        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager) => {
+        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
 
             await transactionalEntityManager.save(user1);
 
