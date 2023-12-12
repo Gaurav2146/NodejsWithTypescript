@@ -48,9 +48,9 @@ async createOrder(name:string,price:number)
  async getOrder()
  {
     try{
-        queryRunner = DatabaseFactory.getDataSource().createQueryRunner();
-        // establish real database connection using our new query runner
-        await queryRunner.connect();
+            queryRunner = DatabaseFactory.getDataSource().createQueryRunner();
+            // establish real database connection using our new query runner
+            await queryRunner.connect();
 
             //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
             await queryRunner.startTransaction("SERIALIZABLE");
@@ -70,7 +70,6 @@ async createOrder(name:string,price:number)
             return await queryRunner.query("SELECT * FROM user");
     }catch(error:any)
     {
-        console.log("catch error");
         await queryRunner.rollbackTransaction();
         throw new Error(error.message);
     }
