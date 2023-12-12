@@ -18,6 +18,12 @@ async createOrder(name:string,price:number)
         user3.name = name;
         user3.price = price;
 
+        // The following database drivers support the standard isolation levels 
+        //(READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE):
+        // MySQL
+        // Postgres
+        // SQL Server
+
         //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
         await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager) => {
 
