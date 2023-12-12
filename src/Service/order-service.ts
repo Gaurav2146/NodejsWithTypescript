@@ -1,6 +1,7 @@
-import { EntityManager } from "typeorm";
+import { EntityManager , QueryRunner } from "typeorm";
 import { User } from "../entity/User";
 import {DatabaseFactory} from "../factory/databaseFactory";
+let queryRunner:QueryRunner;
 
 export class OrderService{
 
@@ -42,4 +43,41 @@ async createOrder(name:string,price:number)
         throw new Error();
     }   
  }
+
+ //FETCHING RESULTS USING CUSTOM QUERY
+ async getOrder()
+ {
+    try{
+        queryRunner = DatabaseFactory.getDataSource().createQueryRunner();
+        // establish real database connection using our new query runner
+        await queryRunner.connect();
+
+            //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
+            await queryRunner.startTransaction();
+        
+            await queryRunner.query('insert into user (name,price) values("Gaurav",135)');
+
+            await queryRunner.query('insert into user (name,price) values("Gaurav1",136)');
+
+            await queryRunner.query("Delete from user where price=135");
+
+            await queryRunner.query("update user set name='Rahul' where price=136");
+
+            //commit transaction now:
+            await queryRunner.commitTransaction()
+
+            // ALWAYS USE SELECT STATEMENT OUTSIDE TRANSACTION
+            return await queryRunner.query("SELECT * FROM user");
+    }catch(error:any)
+    {
+        console.log("catch error");
+        await queryRunner.rollbackTransaction();
+        throw new Error(error.message);
+    }
+    finally
+    {
+        await queryRunner.release();
+    }
+ }
+
 }

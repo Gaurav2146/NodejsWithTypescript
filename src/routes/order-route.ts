@@ -16,8 +16,12 @@ export class OrderRouter implements ApiRouter {
     }
 
     private init() {
+        
         this.router.get('/order/create-order',
             (req: Request, res: Response, next: NextFunction) => this.orderController.createOrder(req, res, next))
+
+        this.router.get('/order/get-order',
+            (req: Request, res: Response, next: NextFunction) => this.orderController.getOrder(req, res, next))           
     }
 }
 
