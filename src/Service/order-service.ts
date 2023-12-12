@@ -53,7 +53,7 @@ async createOrder(name:string,price:number)
         await queryRunner.connect();
 
             //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
-            await queryRunner.startTransaction();
+            await queryRunner.startTransaction("SERIALIZABLE");
         
             await queryRunner.query('insert into user (name,price) values("Gaurav",135)');
 
