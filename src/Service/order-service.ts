@@ -64,7 +64,7 @@ async createOrder(name:string,price:number)
             await queryRunner.query("update user set name='Rahul' where price=136");
 
             //commit transaction now:
-            await queryRunner.commitTransaction()
+            await queryRunner.commitTransaction();
 
             // ALWAYS USE SELECT STATEMENT OUTSIDE TRANSACTION
             return await queryRunner.query("SELECT * FROM user");
