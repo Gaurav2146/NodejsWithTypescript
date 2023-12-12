@@ -15,7 +15,7 @@ export class DatabaseFactory
             host: "localhost",
             port: 3306,
             username: "root",
-            password: "root",
+            password: "Gau@9931",
             database: "typeORM",
             logging: true,
             synchronize: false,
@@ -31,7 +31,6 @@ export class DatabaseFactory
             .catch((err:Error) => {
                 console.error("Error during Data Source initialization", err)
             })
-
     }
 
     static getDataSource()
