@@ -1,4 +1,5 @@
-import { DataSource } from "typeorm";
+import { DataSource} from "typeorm";
+import {configuration} from "../config/ormconfig";
 
 //Singleton object creation
 export class DatabaseFactory
@@ -10,20 +11,23 @@ export class DatabaseFactory
 
     static setDataSource()
     {
-        this.AppDataSource = new DataSource({
-            type: "mysql",
-            host: "localhost",
-            port: 3306,
-            username: "root",
-            password: "Gau@9931",
-            database: "typeORM",
-            logging: true,
-            synchronize: false,
-            entities: [
-                "./src/entity/User.ts"
-            ],
-        })
+        // this.AppDataSource = new DataSource({
+        //     type: "mysql",
+        //     host: "localhost",
+        //     port: 3306,
+        //     username: "root",
+        //     password: "Gau@9931",
+        //     database: "typeORM",
+        //     logging: true,
+        //     synchronize: false,
+        //     entities: [
+        //         "./src/entity/User.ts"
+        //     ],
+        // })
         
+        //INJECTION DB configuration using configuration file
+        this.AppDataSource = new DataSource(configuration);
+
         this.AppDataSource.initialize()
             .then(() => {
                 console.log("Data Source has been initialized!")
