@@ -8,8 +8,10 @@ export const configuration:DataSourceOptions = {
     password: "Gau@9931",
     database: "typeORM",
     logging: true,
+    logger: "file",
     synchronize: false,
     entities: [
         "./src/entity/User.ts"
     ]
 }
+
