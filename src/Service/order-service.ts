@@ -77,6 +77,23 @@ async createOrder(name:string,gender:string)
     }
  }
 
+  async getAllUser()
+  {
+     try{
+
+         return await DatabaseFactory.getDataSource().manager.find(User);
+
+     }catch(error:any)
+     {
+         await queryRunner.rollbackTransaction();
+         throw new Error(error.message);
+     }
+     finally
+     {
+         await queryRunner.release();
+     }
+  }
+
  async insertCategoryAndQuenstions(question:Question,category:Category)
  {
     try{

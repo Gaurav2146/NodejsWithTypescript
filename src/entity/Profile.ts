@@ -11,3 +11,5 @@ export class Profile {
     @Column({nullable:false , default:"PROFILE IMAGE"})
     photo: string
 }
+
+

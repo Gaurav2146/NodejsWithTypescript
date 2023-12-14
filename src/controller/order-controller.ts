@@ -92,6 +92,18 @@ class OrderController {
             next(error);
         }
     }
+
+    async getAllUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            let result = await orderService.getAllUser();
+            res.status(200).json({ result : result });
+        }
+        catch (error) {
+            console.log("Catch ERROR")
+            next(error);
+        }
+    }
+    
 }
 
 //Registering container which is dependent on primitive value
