@@ -820,3 +820,4 @@
 [2023-12-14T05:57:37.282Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Maths Question"]
 [2023-12-14T05:57:37.299Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
 [2023-12-14T05:57:37.311Z][QUERY]: COMMIT
+[2023-12-14T06:31:19.323Z][QUERY]: SELECT VERSION() AS `version`

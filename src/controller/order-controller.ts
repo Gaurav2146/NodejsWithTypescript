@@ -82,7 +82,6 @@ class OrderController {
 
     async getCategoryAndQuenstions(req: Request, res: Response, next: NextFunction) {
         try {
-            
             let {questionId} = req.query;
             
             let result = await orderService.getCategoryAndQuenstions(Number(questionId));

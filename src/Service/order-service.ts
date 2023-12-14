@@ -1,4 +1,4 @@
-import { EntityManager , QueryRunner } from "typeorm";
+import { EntityManager , QueryRunner, FindManyOptions } from "typeorm";
 import { User } from "../entity/User";
 import {DatabaseFactory} from "../factory/databaseFactory";
 import {Category} from "../entity/Category ";
@@ -101,17 +101,24 @@ async createOrder(name:string,price:number)
     }
  }
 
- async getCategoryAndQuenstions()
+ async getCategoryAndQuenstions(questionId:number)
  {
     try{
+     
+        let result;
 
+        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
         
+        result = await transactionalEntityManager.findBy(Question,{id:questionId});
+    
+        })
+
+        return result;
 
     }catch(error:any)
     {
         throw new Error(error.message);
     }
-
  }
 
 }
