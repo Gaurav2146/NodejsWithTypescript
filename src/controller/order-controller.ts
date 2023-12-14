@@ -36,7 +36,7 @@ class OrderController {
             let name = this.getId();
             let id = OrderController.getId();
             
-            let order = await orderService.createOrder("Burger",149);
+            let order = await orderService.createOrder("Burger","Male");
             res.status(200).json({ order : order });
         }
         catch (error) {

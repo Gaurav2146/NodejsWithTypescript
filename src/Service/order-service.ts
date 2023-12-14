@@ -5,22 +5,20 @@ import {Category} from "../entity/Category ";
 import {Question} from "../entity/Question";
 let queryRunner:QueryRunner;
 
+import {Profile} from "../entity/Profile";
+
 export class OrderService{
 
-async createOrder(name:string,price:number)
+async createOrder(name:string,gender:string)
 {
     try{
-        const user1 = new User();
-        user1.name = name;
-        user1.price = price;
+        const user = new User();
+        user.name = name;
+        
+        const profile = new Profile();
+        profile.gender=gender;
 
-        const user2 = new User();
-        user2.name = name;
-        user2.price = price;
-
-        const user3 = new User();
-        user3.name = name;
-        user3.price = price;
+        user.profile = profile;
 
         // The following database drivers support the standard isolation levels 
         //(READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE):
@@ -29,11 +27,9 @@ async createOrder(name:string,price:number)
         // SQL Server
 
         //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
-        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
+        return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
 
-            await transactionalEntityManager.save(user1);
-
-            await transactionalEntityManager.save(user2);
+            await transactionalEntityManager.save(user);
 
         })
 

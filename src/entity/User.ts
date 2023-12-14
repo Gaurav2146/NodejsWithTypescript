@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn , DeleteDateColumn} from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn , DeleteDateColumn, OneToOne, JoinColumn} from "typeorm"
+
+import {Profile} from "./Profile";
 
 @Entity()
 export class User {
@@ -8,8 +10,9 @@ export class User {
     @Column()
     name: string
 
-    @Column()
-    price: number
+    @OneToOne(() => Profile)
+    @JoinColumn()
+    profile: Profile
 
     @CreateDateColumn()
     createdAt: Date

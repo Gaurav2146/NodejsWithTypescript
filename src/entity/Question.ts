@@ -23,7 +23,6 @@ export class Question {
         cascade: true, 
         eager: true,
     })
-    
     @JoinTable()
     categories: Category[]
 }
