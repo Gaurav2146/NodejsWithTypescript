@@ -104,6 +104,20 @@ class OrderController {
         }
     }
 
+    async insertStudentAndSubject(req: Request, res: Response, next: NextFunction) {
+        try {
+            let {studentName, subjectName} = req.body;
+            let result = await orderService.insertStudentAndSubject(studentName,subjectName);
+            res.status(200).json({ result: result });
+        }
+        catch (error) {
+            console.log("Catch ERROR")
+            next(error);
+        }
+    }
+
+    
+
 }
 
 //Registering container which is dependent on primitive value

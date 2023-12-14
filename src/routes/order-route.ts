@@ -32,6 +32,10 @@ export class OrderRouter implements ApiRouter {
         this.router.get('/order/getAllUser',
             (req: Request, res: Response, next: NextFunction) => this.orderController.getAllUser(req, res, next))
 
+        this.router.post('/order/insertStudentAndSubject',
+            (req: Request, res: Response, next: NextFunction) => this.orderController.insertStudentAndSubject(req, res, next))    
+            
+
     }
 }
 

@@ -6,6 +6,8 @@ import { Question } from "../entity/Question";
 let queryRunner: QueryRunner;
 
 import { Profile } from "../entity/Profile";
+import { Student } from "../entity/Student";
+import { Subject } from "../entity/Subject";
 
 export class OrderService {
 
@@ -27,9 +29,7 @@ export class OrderService {
 
             //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
             return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
-
                 await transactionalEntityManager.save(user);
-
             })
 
             // INSERTING DATA WITHOUT USING TRANSACTION
@@ -75,7 +75,6 @@ export class OrderService {
     async getAllUser() {
         try {
             return await DatabaseFactory.getDataSource().manager.find(User);
-
         } catch (error: any) {
             throw new Error(error.message);
         }
@@ -83,17 +82,11 @@ export class OrderService {
 
     async insertCategoryAndQuenstions(question: Question, category: Category) {
         try {
-
             let result;
-
             await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
-
                 result = await transactionalEntityManager.save(question);
-
             })
-
             return result;
-
         } catch (error: any) {
             throw new Error(error.message);
         }
@@ -101,20 +94,35 @@ export class OrderService {
 
     async getCategoryAndQuenstions(questionId: number) {
         try {
-
             let result;
-
             await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
-
                 result = await transactionalEntityManager.findBy(Question, { id: questionId });
-
             })
-
             return result;
-
         } catch (error: any) {
             throw new Error(error.message);
         }
     }
 
+    async insertStudentAndSubject(studentName: string, subjectName:string) {
+        try {
+            
+            //In Bi-Directional relation, You must provide data to both relation attributes before saving.
+             let student = new Student();
+             student.name = studentName;
+
+             let subject = new Subject();
+             subject.name = subjectName;
+             subject.student = student;
+
+             student.subject=new Array(subject);
+
+            return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
+                await transactionalEntityManager.save(student);
+            })
+            
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
 }
