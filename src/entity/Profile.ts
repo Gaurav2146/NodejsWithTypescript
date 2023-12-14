@@ -8,6 +8,6 @@ export class Profile {
     @Column()
     gender: string
 
-    @Column()
+    @Column({nullable:false , default:"PROFILE IMAGE"})
     photo: string
 }

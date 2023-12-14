@@ -10,7 +10,9 @@ export class User {
     @Column()
     name: string
 
-    @OneToOne(() => Profile)
+    @OneToOne(() => Profile,{
+        cascade:true
+    })
     @JoinColumn()
     profile: Profile
 
