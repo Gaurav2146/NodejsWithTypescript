@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import 'reflect-metadata';
 import { autoInjectable, container } from "tsyringe";
-import {OrderService} from "../Service/order-service";
+import { OrderService } from "../Service/order-service";
 const orderService = new OrderService();
-import {Category} from "../entity/Category ";
-import {Question} from "../entity/Question";
+import { Category } from "../entity/Category ";
+import { Question } from "../entity/Question";
 
 @autoInjectable()
 class OrderController {
@@ -35,9 +35,9 @@ class OrderController {
         try {
             let name = this.getId();
             let id = OrderController.getId();
-            
-            let order = await orderService.createOrder("Burger","Male");
-            res.status(200).json({ order : order });
+
+            let order = await orderService.createOrder("Burger", "Male");
+            res.status(200).json({ order: order });
         }
         catch (error) {
             console.log("Catch ERROR")
@@ -47,9 +47,9 @@ class OrderController {
 
     async getOrder(req: Request, res: Response, next: NextFunction) {
         try {
-            
+
             let order = await orderService.getOrder();
-            res.status(200).json({ order : order });
+            res.status(200).json({ order: order });
         }
         catch (error) {
             console.log("Catch ERROR")
@@ -60,9 +60,9 @@ class OrderController {
     async insertCategoryAndQuenstions(req: Request, res: Response, next: NextFunction) {
         try {
 
-            let { name , title, text } = req.body;
+            let { name, title, text } = req.body;
 
-            let question  = new Question();
+            let question = new Question();
             question.text = text;
             question.title = title;
 
@@ -71,8 +71,8 @@ class OrderController {
 
             question.categories = new Array(category);
 
-            let result = await orderService.insertCategoryAndQuenstions(question,category);
-            res.status(200).json({ result : result });
+            let result = await orderService.insertCategoryAndQuenstions(question, category);
+            res.status(200).json({ result: result });
         }
         catch (error) {
             console.log("Catch ERROR")
@@ -82,10 +82,10 @@ class OrderController {
 
     async getCategoryAndQuenstions(req: Request, res: Response, next: NextFunction) {
         try {
-            let {questionId} = req.query;
-            
+            let { questionId } = req.query;
+
             let result = await orderService.getCategoryAndQuenstions(Number(questionId));
-            res.status(200).json({ result : result });
+            res.status(200).json({ result: result });
         }
         catch (error) {
             console.log("Catch ERROR")
@@ -96,14 +96,14 @@ class OrderController {
     async getAllUser(req: Request, res: Response, next: NextFunction) {
         try {
             let result = await orderService.getAllUser();
-            res.status(200).json({ result : result });
+            res.status(200).json({ result: result });
         }
         catch (error) {
             console.log("Catch ERROR")
             next(error);
         }
     }
-    
+
 }
 
 //Registering container which is dependent on primitive value

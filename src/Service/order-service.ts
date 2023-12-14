@@ -1,58 +1,55 @@
-import { EntityManager , QueryRunner, FindManyOptions } from "typeorm";
+import { EntityManager, QueryRunner, FindManyOptions } from "typeorm";
 import { User } from "../entity/User";
-import {DatabaseFactory} from "../factory/databaseFactory";
-import {Category} from "../entity/Category ";
-import {Question} from "../entity/Question";
-let queryRunner:QueryRunner;
+import { DatabaseFactory } from "../factory/databaseFactory";
+import { Category } from "../entity/Category ";
+import { Question } from "../entity/Question";
+let queryRunner: QueryRunner;
 
-import {Profile} from "../entity/Profile";
+import { Profile } from "../entity/Profile";
 
-export class OrderService{
+export class OrderService {
 
-async createOrder(name:string,gender:string)
-{
-    try{
-        const user = new User();
-        user.name = name;
-        
-        const profile = new Profile();
-        profile.gender=gender;
+    async createOrder(name: string, gender: string) {
+        try {
+            const user = new User();
+            user.name = name;
 
-        user.profile = profile;
+            const profile = new Profile();
+            profile.gender = gender;
 
-        // The following database drivers support the standard isolation levels 
-        //(READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE):
-        // MySQL
-        // Postgres
-        // SQL Server
+            user.profile = profile;
 
-        //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
-        return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
+            // The following database drivers support the standard isolation levels 
+            //(READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE):
+            // MySQL
+            // Postgres
+            // SQL Server
 
-            await transactionalEntityManager.save(user);
+            //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
+            return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
 
-        })
+                await transactionalEntityManager.save(user);
 
-        // INSERTING DATA WITHOUT USING TRANSACTION
-        // return await DatabaseFactory.getDataSource().manager.save(user3);
-        // return DatabaseFactory.AppDataSource.manager.create(User,{name:name,price:price});
-    }catch(error)
-    {
-        throw new Error();
-    }   
- }
+            })
 
- //FETCHING RESULTS USING CUSTOM QUERY
- async getOrder()
- {
-    try{
+            // INSERTING DATA WITHOUT USING TRANSACTION
+            // return await DatabaseFactory.getDataSource().manager.save(user3);
+            // return DatabaseFactory.AppDataSource.manager.create(User,{name:name,price:price});
+        } catch (error) {
+            throw new Error();
+        }
+    }
+
+    //FETCHING RESULTS USING CUSTOM QUERY
+    async getOrder() {
+        try {
             queryRunner = DatabaseFactory.getDataSource().createQueryRunner();
             // establish real database connection using our new query runner
             await queryRunner.connect();
 
             //IMPLEMENTING TRANSACTION and ISOLATION LEVELS
             await queryRunner.startTransaction("SERIALIZABLE");
-        
+
             await queryRunner.query('insert into user (name,price) values("Gaurav",135)');
 
             await queryRunner.query('insert into user (name,price) values("Gaurav1",136)');
@@ -66,72 +63,58 @@ async createOrder(name:string,gender:string)
 
             // ALWAYS USE SELECT STATEMENT OUTSIDE TRANSACTION
             return await queryRunner.query("SELECT * FROM user");
-    }catch(error:any)
-    {
-        await queryRunner.rollbackTransaction();
-        throw new Error(error.message);
+        } catch (error: any) {
+            await queryRunner.rollbackTransaction();
+            throw new Error(error.message);
+        }
+        finally {
+            await queryRunner.release();
+        }
     }
-    finally
-    {
-        await queryRunner.release();
+
+    async getAllUser() {
+        try {
+            return await DatabaseFactory.getDataSource().manager.find(User);
+
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
     }
- }
 
-  async getAllUser()
-  {
-     try{
+    async insertCategoryAndQuenstions(question: Question, category: Category) {
+        try {
 
-         return await DatabaseFactory.getDataSource().manager.find(User);
+            let result;
 
-     }catch(error:any)
-     {
-         await queryRunner.rollbackTransaction();
-         throw new Error(error.message);
-     }
-     finally
-     {
-         await queryRunner.release();
-     }
-  }
+            await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
 
- async insertCategoryAndQuenstions(question:Question,category:Category)
- {
-    try{
+                result = await transactionalEntityManager.save(question);
 
-        let result;
+            })
 
-        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
-        
-        result = await transactionalEntityManager.save(question);
-    
-        })
+            return result;
 
-        return result;
-
-    }catch(error:any)
-    {
-        throw new Error(error.message);
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
     }
- }
 
- async getCategoryAndQuenstions(questionId:number)
- {
-    try{
-     
-        let result;
+    async getCategoryAndQuenstions(questionId: number) {
+        try {
 
-        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
-        
-        result = await transactionalEntityManager.findBy(Question,{id:questionId});
-    
-        })
+            let result;
 
-        return result;
+            await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
 
-    }catch(error:any)
-    {
-        throw new Error(error.message);
+                result = await transactionalEntityManager.findBy(Question, { id: questionId });
+
+            })
+
+            return result;
+
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
     }
- }
 
 }
