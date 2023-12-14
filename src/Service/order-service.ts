@@ -103,7 +103,14 @@ async createOrder(name:string,price:number)
 
  async getCategoryAndQuenstions()
  {
-    
+    try{
+
+        
+
+    }catch(error:any)
+    {
+        throw new Error(error.message);
+    }
 
  }
 

@@ -25,8 +25,10 @@ export class OrderRouter implements ApiRouter {
             
         this.router.post('/order/insertCategoryAndQuenstions',
             (req: Request, res: Response, next: NextFunction) => this.orderController.insertCategoryAndQuenstions(req, res, next))    
-            
-            
+        
+        this.router.post('/order/getCategoryAndQuenstions',
+            (req: Request, res: Response, next: NextFunction) => this.orderController.getCategoryAndQuenstions(req, res, next))
+
     }
 }
 
