@@ -11,7 +11,8 @@ export class User {
     name: string
 
     @OneToOne(() => Profile,{
-        cascade:true
+        cascade:true,
+        eager:true
     })
     @JoinColumn()
     profile: Profile
