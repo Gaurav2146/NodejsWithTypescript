@@ -11,7 +11,7 @@ export const configuration:DataSourceOptions = {
     logger: "file",
     synchronize: false,
     entities: [
-        "./src/entity/User.ts"
+        "./src/entity/*.ts"
     ]
 }
 

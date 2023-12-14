@@ -1,6 +1,8 @@
 import { EntityManager , QueryRunner } from "typeorm";
 import { User } from "../entity/User";
 import {DatabaseFactory} from "../factory/databaseFactory";
+import {Category} from "../entity/Category ";
+import {Question} from "../entity/Question";
 let queryRunner:QueryRunner;
 
 export class OrderService{
@@ -36,7 +38,7 @@ async createOrder(name:string,price:number)
         })
 
         // INSERTING DATA WITHOUT USING TRANSACTION
-        return await DatabaseFactory.getDataSource().manager.save(user3);
+        // return await DatabaseFactory.getDataSource().manager.save(user3);
         // return DatabaseFactory.AppDataSource.manager.create(User,{name:name,price:price});
     }catch(error)
     {
@@ -77,6 +79,32 @@ async createOrder(name:string,price:number)
     {
         await queryRunner.release();
     }
+ }
+
+ async insertCategoryAndQuenstions(question:Question,category:Category)
+ {
+    try{
+
+        let result;
+
+        await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE" ,async (transactionalEntityManager:EntityManager) => {
+        
+        result = await transactionalEntityManager.save(question);
+    
+        })
+
+        return result;
+
+    }catch(error:any)
+    {
+        throw new Error(error.message);
+    }
+ }
+
+ async getCategoryAndQuenstions()
+ {
+    
+
  }
 
 }

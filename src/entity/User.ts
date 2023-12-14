@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn , DeleteDateColumn} from "typeorm"
 
 @Entity()
 export class User {
@@ -10,4 +10,11 @@ export class User {
 
     @Column()
     price: number
+
+    @CreateDateColumn()
+    createdAt: Date
+
+    @DeleteDateColumn()
+    deletedAt:Date
 }
+

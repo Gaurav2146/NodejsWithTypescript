@@ -3,6 +3,8 @@ import 'reflect-metadata';
 import { autoInjectable, container } from "tsyringe";
 import {OrderService} from "../Service/order-service";
 const orderService = new OrderService();
+import {Category} from "../entity/Category ";
+import {Question} from "../entity/Question";
 
 @autoInjectable()
 class OrderController {
@@ -48,6 +50,41 @@ class OrderController {
             
             let order = await orderService.getOrder();
             res.status(200).json({ order : order });
+        }
+        catch (error) {
+            console.log("Catch ERROR")
+            next(error);
+        }
+    }
+
+    async insertCategoryAndQuenstions(req: Request, res: Response, next: NextFunction) {
+        try {
+
+            let { name , title, text } = req.body;
+
+            let question  = new Question();
+            question.text = text;
+            question.title = title;
+
+            let category = new Category();
+            category.name = name;
+
+            question.categories = new Array(category);
+
+            let result = await orderService.insertCategoryAndQuenstions(question,category);
+            res.status(200).json({ result : result });
+        }
+        catch (error) {
+            console.log("Catch ERROR")
+            next(error);
+        }
+    }
+
+    async getCategoryAndQuenstions(req: Request, res: Response, next: NextFunction) {
+        try {
+            
+            let result = await orderService.getCategoryAndQuenstions();
+            res.status(200).json({ result : result });
         }
         catch (error) {
             console.log("Catch ERROR")

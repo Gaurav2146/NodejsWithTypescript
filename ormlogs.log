@@ -16,3 +16,807 @@
 [2023-12-13T09:24:13.902Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["Burger",149]
 [2023-12-13T09:24:13.908Z][QUERY]: COMMIT
 [2023-12-13T09:27:04.723Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T10:22:15.424Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T10:22:46.232Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T10:22:46.258Z][QUERY]: START TRANSACTION
+[2023-12-13T10:22:46.264Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T10:22:46.268Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user'
+[2023-12-13T10:22:46.293Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T10:22:46.305Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T10:22:46.397Z][QUERY]: COMMIT
+[2023-12-13T10:22:51.038Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-13T10:22:51.047Z][QUERY]: START TRANSACTION
+[2023-12-13T10:22:51.064Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Burger",149]
+[2023-12-13T10:22:51.081Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-13T10:22:51.096Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Burger",149]
+[2023-12-13T10:22:51.101Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-13T10:22:51.106Z][QUERY]: COMMIT
+[2023-12-13T10:22:51.115Z][QUERY]: START TRANSACTION
+[2023-12-13T10:22:51.119Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Burger",149]
+[2023-12-13T10:22:51.124Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [3]
+[2023-12-13T10:22:51.128Z][QUERY]: COMMIT
+[2023-12-13T10:40:15.129Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T10:40:15.178Z][QUERY]: START TRANSACTION
+[2023-12-13T10:40:15.186Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T10:40:15.193Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user'
+[2023-12-13T10:40:15.211Z][QUERY]: 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+                
+[2023-12-13T10:40:15.213Z][QUERY]: SELECT * FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+            ) `kcu` WHERE `CONSTRAINT_NAME` = 'PRIMARY'
+[2023-12-13T10:40:15.216Z][QUERY]: 
+            SELECT
+                `SCHEMA_NAME`,
+                `DEFAULT_CHARACTER_SET_NAME` as `CHARSET`,
+                `DEFAULT_COLLATION_NAME` AS `COLLATION`
+            FROM `INFORMATION_SCHEMA`.`SCHEMATA`
+            
+[2023-12-13T10:40:15.218Z][QUERY]: 
+            SELECT
+                `s`.*
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+            ) `s`
+            LEFT JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+            ) `rc`
+                ON
+                    `s`.`INDEX_NAME` = `rc`.`CONSTRAINT_NAME`
+                    AND
+                    `s`.`TABLE_SCHEMA` = `rc`.`CONSTRAINT_SCHEMA`
+            WHERE
+                `s`.`INDEX_NAME` != 'PRIMARY'
+                AND
+                `rc`.`CONSTRAINT_NAME` IS NULL
+            
+[2023-12-13T10:40:15.220Z][QUERY]: 
+            SELECT
+                `kcu`.`TABLE_SCHEMA`,
+                `kcu`.`TABLE_NAME`,
+                `kcu`.`CONSTRAINT_NAME`,
+                `kcu`.`COLUMN_NAME`,
+                `kcu`.`REFERENCED_TABLE_SCHEMA`,
+                `kcu`.`REFERENCED_TABLE_NAME`,
+                `kcu`.`REFERENCED_COLUMN_NAME`,
+                `rc`.`DELETE_RULE` `ON_DELETE`,
+                `rc`.`UPDATE_RULE` `ON_UPDATE`
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+            ) `kcu`
+            INNER JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+            ) `rc`
+                ON
+                    `rc`.`CONSTRAINT_SCHEMA` = `kcu`.`CONSTRAINT_SCHEMA`
+                    AND
+                    `rc`.`TABLE_NAME` = `kcu`.`TABLE_NAME`
+                    AND
+                    `rc`.`CONSTRAINT_NAME` = `kcu`.`CONSTRAINT_NAME`
+            
+[2023-12-13T10:40:15.275Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T10:40:15.287Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T10:40:15.313Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T10:40:15.320Z][FAILED QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T10:40:15.320Z][QUERY ERROR]: Error: Table 'user' already exists
+[2023-12-13T10:40:15.324Z][QUERY]: ROLLBACK
+[2023-12-13T11:02:41.151Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:03:05.514Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-13T11:03:05.534Z][QUERY]: START TRANSACTION
+[2023-12-13T11:03:05.594Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Burger",149]
+[2023-12-13T11:03:05.641Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [4]
+[2023-12-13T11:03:05.695Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Burger",149]
+[2023-12-13T11:03:05.704Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [5]
+[2023-12-13T11:03:05.717Z][QUERY]: COMMIT
+[2023-12-13T11:03:05.733Z][QUERY]: START TRANSACTION
+[2023-12-13T11:03:05.743Z][QUERY]: INSERT INTO `user`(`id`, `name`, `price`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Burger",149]
+[2023-12-13T11:03:05.751Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [6]
+[2023-12-13T11:03:05.761Z][QUERY]: COMMIT
+[2023-12-13T11:36:54.004Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:37:06.185Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-13T11:37:06.192Z][QUERY]: START TRANSACTION
+[2023-12-13T11:37:06.200Z][QUERY]: ROLLBACK
+[2023-12-13T11:38:29.556Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:38:29.618Z][QUERY]: START TRANSACTION
+[2023-12-13T11:38:29.629Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T11:38:29.636Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user'
+[2023-12-13T11:38:29.653Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T11:38:29.680Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:38:29.784Z][QUERY]: COMMIT
+[2023-12-13T11:38:36.320Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-13T11:38:36.326Z][QUERY]: START TRANSACTION
+[2023-12-13T11:38:36.336Z][QUERY]: ROLLBACK
+[2023-12-13T11:39:18.113Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:39:18.268Z][QUERY]: START TRANSACTION
+[2023-12-13T11:39:18.277Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T11:39:18.286Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-13T11:39:18.332Z][QUERY]: 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+                
+[2023-12-13T11:39:18.338Z][QUERY]: SELECT * FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+            ) `kcu` WHERE `CONSTRAINT_NAME` = 'PRIMARY'
+[2023-12-13T11:39:18.343Z][QUERY]: 
+            SELECT
+                `SCHEMA_NAME`,
+                `DEFAULT_CHARACTER_SET_NAME` as `CHARSET`,
+                `DEFAULT_COLLATION_NAME` AS `COLLATION`
+            FROM `INFORMATION_SCHEMA`.`SCHEMATA`
+            
+[2023-12-13T11:39:18.349Z][QUERY]: 
+            SELECT
+                `s`.*
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+            ) `s`
+            LEFT JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+            ) `rc`
+                ON
+                    `s`.`INDEX_NAME` = `rc`.`CONSTRAINT_NAME`
+                    AND
+                    `s`.`TABLE_SCHEMA` = `rc`.`CONSTRAINT_SCHEMA`
+            WHERE
+                `s`.`INDEX_NAME` != 'PRIMARY'
+                AND
+                `rc`.`CONSTRAINT_NAME` IS NULL
+            
+[2023-12-13T11:39:18.355Z][QUERY]: 
+            SELECT
+                `kcu`.`TABLE_SCHEMA`,
+                `kcu`.`TABLE_NAME`,
+                `kcu`.`CONSTRAINT_NAME`,
+                `kcu`.`COLUMN_NAME`,
+                `kcu`.`REFERENCED_TABLE_SCHEMA`,
+                `kcu`.`REFERENCED_TABLE_NAME`,
+                `kcu`.`REFERENCED_COLUMN_NAME`,
+                `rc`.`DELETE_RULE` `ON_DELETE`,
+                `rc`.`UPDATE_RULE` `ON_UPDATE`
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+            ) `kcu`
+            INNER JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+            ) `rc`
+                ON
+                    `rc`.`CONSTRAINT_SCHEMA` = `kcu`.`CONSTRAINT_SCHEMA`
+                    AND
+                    `rc`.`TABLE_NAME` = `kcu`.`TABLE_NAME`
+                    AND
+                    `rc`.`CONSTRAINT_NAME` = `kcu`.`CONSTRAINT_NAME`
+            
+[2023-12-13T11:39:18.442Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:39:18.456Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T11:39:18.481Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:39:18.500Z][FAILED QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:39:18.500Z][QUERY ERROR]: Error: Table 'user' already exists
+[2023-12-13T11:39:18.508Z][QUERY]: ROLLBACK
+[2023-12-13T11:40:00.306Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:40:00.424Z][QUERY]: START TRANSACTION
+[2023-12-13T11:40:00.431Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T11:40:00.437Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-13T11:40:00.474Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T11:40:00.506Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:40:00.586Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:40:00.661Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:40:00.742Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-13T11:40:01.015Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-13T11:40:01.023Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-13T11:40:01.591Z][QUERY]: COMMIT
+[2023-12-13T11:40:04.470Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-13T11:40:04.476Z][QUERY]: START TRANSACTION
+[2023-12-13T11:40:04.504Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["Question 1","Find Factorial of 5"]
+[2023-12-13T11:40:04.531Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Maths Question"]
+[2023-12-13T11:40:04.563Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?), (?, ?) -- PARAMETERS: [1,1,1,1]
+[2023-12-13T11:40:04.575Z][FAILED QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?), (?, ?) -- PARAMETERS: [1,1,1,1]
+[2023-12-13T11:40:04.575Z][QUERY ERROR]: Error: Duplicate entry '1-1' for key 'question_categories_category.PRIMARY'
+[2023-12-13T11:40:04.586Z][QUERY]: ROLLBACK
+[2023-12-13T11:41:19.214Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:41:19.376Z][QUERY]: START TRANSACTION
+[2023-12-13T11:41:19.387Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T11:41:19.398Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-13T11:41:19.425Z][QUERY]: 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+                
+[2023-12-13T11:41:19.430Z][QUERY]: SELECT * FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu` WHERE `CONSTRAINT_NAME` = 'PRIMARY'
+[2023-12-13T11:41:19.446Z][QUERY]: 
+            SELECT
+                `SCHEMA_NAME`,
+                `DEFAULT_CHARACTER_SET_NAME` as `CHARSET`,
+                `DEFAULT_COLLATION_NAME` AS `COLLATION`
+            FROM `INFORMATION_SCHEMA`.`SCHEMATA`
+            
+[2023-12-13T11:41:19.450Z][QUERY]: 
+            SELECT
+                `s`.*
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `s`
+            LEFT JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `s`.`INDEX_NAME` = `rc`.`CONSTRAINT_NAME`
+                    AND
+                    `s`.`TABLE_SCHEMA` = `rc`.`CONSTRAINT_SCHEMA`
+            WHERE
+                `s`.`INDEX_NAME` != 'PRIMARY'
+                AND
+                `rc`.`CONSTRAINT_NAME` IS NULL
+            
+[2023-12-13T11:41:19.454Z][QUERY]: 
+            SELECT
+                `kcu`.`TABLE_SCHEMA`,
+                `kcu`.`TABLE_NAME`,
+                `kcu`.`CONSTRAINT_NAME`,
+                `kcu`.`COLUMN_NAME`,
+                `kcu`.`REFERENCED_TABLE_SCHEMA`,
+                `kcu`.`REFERENCED_TABLE_NAME`,
+                `kcu`.`REFERENCED_COLUMN_NAME`,
+                `rc`.`DELETE_RULE` `ON_DELETE`,
+                `rc`.`UPDATE_RULE` `ON_UPDATE`
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu`
+            INNER JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `rc`.`CONSTRAINT_SCHEMA` = `kcu`.`CONSTRAINT_SCHEMA`
+                    AND
+                    `rc`.`TABLE_NAME` = `kcu`.`TABLE_NAME`
+                    AND
+                    `rc`.`CONSTRAINT_NAME` = `kcu`.`CONSTRAINT_NAME`
+            
+[2023-12-13T11:41:19.550Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:41:19.576Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T11:41:19.613Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:41:19.623Z][FAILED QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:41:19.623Z][QUERY ERROR]: Error: Table 'user' already exists
+[2023-12-13T11:41:19.628Z][QUERY]: ROLLBACK
+[2023-12-13T11:41:59.507Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:41:59.658Z][QUERY]: START TRANSACTION
+[2023-12-13T11:41:59.674Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T11:41:59.689Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-13T11:41:59.715Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T11:41:59.752Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:41:59.864Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:41:59.956Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:42:00.047Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-13T11:42:00.176Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-13T11:42:00.183Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-13T11:42:00.666Z][QUERY]: COMMIT
+[2023-12-13T11:42:05.203Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-13T11:42:05.209Z][QUERY]: START TRANSACTION
+[2023-12-13T11:42:05.235Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["Question 1","Find Factorial of 5"]
+[2023-12-13T11:42:05.247Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Maths Question"]
+[2023-12-13T11:42:05.255Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
+[2023-12-13T11:42:05.264Z][QUERY]: COMMIT
+[2023-12-13T11:44:06.152Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-13T11:44:06.296Z][QUERY]: START TRANSACTION
+[2023-12-13T11:44:06.315Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-13T11:44:06.323Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-13T11:44:06.344Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-13T11:44:06.387Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:44:06.481Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:44:06.540Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-13T11:44:06.618Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-13T11:44:06.779Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-13T11:44:06.816Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-13T11:44:07.458Z][QUERY]: COMMIT
+[2023-12-14T05:55:46.566Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-14T05:55:46.721Z][QUERY]: START TRANSACTION
+[2023-12-14T05:55:46.734Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-14T05:55:46.745Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-14T05:55:46.829Z][QUERY]: 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+                
+[2023-12-14T05:55:46.833Z][QUERY]: SELECT * FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu` WHERE `CONSTRAINT_NAME` = 'PRIMARY'
+[2023-12-14T05:55:46.838Z][QUERY]: 
+            SELECT
+                `SCHEMA_NAME`,
+                `DEFAULT_CHARACTER_SET_NAME` as `CHARSET`,
+                `DEFAULT_COLLATION_NAME` AS `COLLATION`
+            FROM `INFORMATION_SCHEMA`.`SCHEMATA`
+            
+[2023-12-14T05:55:46.843Z][QUERY]: 
+            SELECT
+                `s`.*
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `s`
+            LEFT JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `s`.`INDEX_NAME` = `rc`.`CONSTRAINT_NAME`
+                    AND
+                    `s`.`TABLE_SCHEMA` = `rc`.`CONSTRAINT_SCHEMA`
+            WHERE
+                `s`.`INDEX_NAME` != 'PRIMARY'
+                AND
+                `rc`.`CONSTRAINT_NAME` IS NULL
+            
+[2023-12-14T05:55:46.857Z][QUERY]: 
+            SELECT
+                `kcu`.`TABLE_SCHEMA`,
+                `kcu`.`TABLE_NAME`,
+                `kcu`.`CONSTRAINT_NAME`,
+                `kcu`.`COLUMN_NAME`,
+                `kcu`.`REFERENCED_TABLE_SCHEMA`,
+                `kcu`.`REFERENCED_TABLE_NAME`,
+                `kcu`.`REFERENCED_COLUMN_NAME`,
+                `rc`.`DELETE_RULE` `ON_DELETE`,
+                `rc`.`UPDATE_RULE` `ON_UPDATE`
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu`
+            INNER JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `rc`.`CONSTRAINT_SCHEMA` = `kcu`.`CONSTRAINT_SCHEMA`
+                    AND
+                    `rc`.`TABLE_NAME` = `kcu`.`TABLE_NAME`
+                    AND
+                    `rc`.`CONSTRAINT_NAME` = `kcu`.`CONSTRAINT_NAME`
+            
+[2023-12-14T05:55:47.039Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-14T05:55:47.060Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-14T05:55:47.091Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-14T05:55:47.269Z][FAILED QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `price` int NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-14T05:55:47.269Z][QUERY ERROR]: Error: Table 'user' already exists
+[2023-12-14T05:55:47.278Z][QUERY]: ROLLBACK
+[2023-12-14T05:56:46.022Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-14T05:57:37.211Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-14T05:57:37.221Z][QUERY]: START TRANSACTION
+[2023-12-14T05:57:37.254Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["Question 1","Find Factorial of 5"]
+[2023-12-14T05:57:37.282Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Maths Question"]
+[2023-12-14T05:57:37.299Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
+[2023-12-14T05:57:37.311Z][QUERY]: COMMIT
