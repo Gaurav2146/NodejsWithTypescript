@@ -1845,3 +1845,56 @@
 [2023-12-15T10:20:45.522Z][FAILED QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
 [2023-12-15T10:20:45.522Z][QUERY ERROR]: Error: Table 'profile' already exists
 [2023-12-15T10:20:45.528Z][QUERY]: ROLLBACK
+[2023-12-15T10:21:54.075Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:21:59.396Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:21:59.404Z][QUERY]: START TRANSACTION
+[2023-12-15T10:21:59.425Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`name` AS `Student_name`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( (`Student`.`name` = ?) ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:21:59.448Z][QUERY]: COMMIT
+[2023-12-15T10:24:04.488Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:24:04.635Z][QUERY]: START TRANSACTION
+[2023-12-15T10:24:04.646Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-15T10:24:04.666Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-15T10:24:04.701Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-15T10:24:04.760Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:24:04.831Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `profileId` int NULL, UNIQUE INDEX `REL_9466682df91534dd95e4dbaa61` (`profileId`), PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:24:04.934Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:24:05.015Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:24:05.105Z][QUERY]: CREATE TABLE `subject` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `studentId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:24:05.205Z][QUERY]: CREATE TABLE `student` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:24:05.297Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-15T10:24:05.445Z][QUERY]: ALTER TABLE `user` ADD CONSTRAINT `FK_9466682df91534dd95e4dbaa616` FOREIGN KEY (`profileId`) REFERENCES `profile`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-15T10:24:05.833Z][QUERY]: ALTER TABLE `subject` ADD CONSTRAINT `FK_bc372748191d476efd239a77684` FOREIGN KEY (`studentId`) REFERENCES `student`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-15T10:24:06.092Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-15T10:24:06.099Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-15T10:24:06.780Z][QUERY]: COMMIT
+[2023-12-15T10:25:03.763Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:25:03.770Z][QUERY]: START TRANSACTION
+[2023-12-15T10:25:03.796Z][QUERY]: INSERT INTO `profile`(`id`, `gender`, `photo`) VALUES (DEFAULT, ?, DEFAULT) -- PARAMETERS: ["Male"]
+[2023-12-15T10:25:03.822Z][QUERY]: SELECT `Profile`.`id` AS `Profile_id`, `Profile`.`photo` AS `Profile_photo` FROM `profile` `Profile` WHERE `Profile`.`id` = ? -- PARAMETERS: [1]
+[2023-12-15T10:25:03.831Z][QUERY]: INSERT INTO `user`(`id`, `name`, `createdAt`, `deletedAt`, `profileId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Burger",1]
+[2023-12-15T10:25:03.845Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-15T10:25:03.866Z][QUERY]: COMMIT
+[2023-12-15T10:25:06.424Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:25:06.429Z][QUERY]: START TRANSACTION
+[2023-12-15T10:25:06.440Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["Question 1","Find Factorial of 5"]
+[2023-12-15T10:25:06.458Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Maths Question"]
+[2023-12-15T10:25:06.473Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
+[2023-12-15T10:25:06.482Z][QUERY]: COMMIT
+[2023-12-15T10:25:08.188Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:25:08.193Z][QUERY]: START TRANSACTION
+[2023-12-15T10:25:08.207Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [1]
+[2023-12-15T10:25:08.215Z][QUERY]: COMMIT
+[2023-12-15T10:25:09.767Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt`, `User`.`profileId` AS `User_profileId`, `User__profile`.`id` AS `User__profile_id`, `User__profile`.`gender` AS `User__profile_gender`, `User__profile`.`photo` AS `User__profile_photo` FROM `user` `User` LEFT JOIN `profile` `User__profile` ON `User__profile`.`id`=`User`.`profileId` WHERE `User`.`deletedAt` IS NULL
+[2023-12-15T10:25:11.659Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:25:11.664Z][QUERY]: START TRANSACTION
+[2023-12-15T10:25:11.674Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:25:11.694Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-15T10:25:11.710Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",1]
+[2023-12-15T10:25:11.727Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-15T10:25:11.743Z][QUERY]: COMMIT
+[2023-12-15T10:25:13.305Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:25:13.309Z][QUERY]: START TRANSACTION
+[2023-12-15T10:25:13.931Z][QUERY]: ROLLBACK
+[2023-12-15T10:25:19.082Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:25:19.088Z][QUERY]: START TRANSACTION
+[2023-12-15T10:25:19.494Z][QUERY]: ROLLBACK
