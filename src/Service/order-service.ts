@@ -195,10 +195,8 @@ export class OrderService {
 
             await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {           
                 result = await transactionalEntityManager.softDelete( Student,
-                {
-                    where:{
-                        name:studentName
-                    }
+                {  
+                  name:studentName   
                 });
             })
 

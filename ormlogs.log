@@ -1952,3 +1952,20 @@
 [2023-12-15T10:27:54.070Z][QUERY]: START TRANSACTION
 [2023-12-15T10:27:54.077Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
 [2023-12-15T10:27:54.088Z][QUERY]: COMMIT
+[2023-12-15T10:34:41.735Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:34:44.902Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:34:44.910Z][QUERY]: START TRANSACTION
+[2023-12-15T10:34:44.943Z][QUERY]: ROLLBACK
+[2023-12-15T10:35:56.306Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:36:00.629Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:36:00.638Z][QUERY]: START TRANSACTION
+[2023-12-15T10:36:00.662Z][QUERY]: UPDATE `student` SET `deletedAt` = CURRENT_TIMESTAMP WHERE `name` = ? -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:36:00.672Z][QUERY]: COMMIT
+[2023-12-15T10:36:29.987Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:36:29.995Z][QUERY]: START TRANSACTION
+[2023-12-15T10:36:30.013Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`name` AS `Student_name`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( (`Student`.`name` = ?) ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:36:30.024Z][QUERY]: COMMIT
+[2023-12-15T10:36:33.265Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:36:33.271Z][QUERY]: START TRANSACTION
+[2023-12-15T10:36:33.285Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:36:33.296Z][QUERY]: COMMIT

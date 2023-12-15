@@ -41,6 +41,8 @@ export class OrderRouter implements ApiRouter {
         this.router.get('/order/getStudent/:studentName',
             (req: Request, res: Response, next: NextFunction) => this.orderController.getStudent(req, res, next))
 
+        this.router.delete('/order/deleteStudent/:studentName',
+            (req: Request, res: Response, next: NextFunction) => this.orderController.deleteStudent(req, res, next))
             
     }
 }
