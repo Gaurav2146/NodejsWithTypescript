@@ -128,10 +128,10 @@ export class OrderService {
              subject.name = subjectName;
              subject.student = student;
 
-             //Only need to save parent entity and child will be saved due do cascade:true present in parent entity
              student.subject=new Array(subject);
 
             return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
+                 //Only need to save parent entity and child will be saved due do cascade:true present in parent entity
                 await transactionalEntityManager.save(student);
             })
             
@@ -187,6 +187,28 @@ export class OrderService {
             throw new Error(error.message);
         }
     }
+
+    async deleteStudent(studentName: string) {
+        try {
+            
+            let result;
+
+            await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {           
+                result = await transactionalEntityManager.softDelete( Student,
+                {
+                    where:{
+                        name:studentName
+                    }
+                });
+            })
+
+            return result;
+        } catch (error: any) {
+            console.log(error,"error");
+            throw new Error(error.message);
+        }
+    }
+    
 
     //=================================== ONE TO MANY END ========================================================
 }
