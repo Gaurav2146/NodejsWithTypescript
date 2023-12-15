@@ -104,6 +104,8 @@ export class OrderService {
         }
     }
 
+    //=================================== ONE TO MANY ========================================================
+
     async insertStudentAndSubject(studentName: string, subjectName:string) {
         try {
             
@@ -152,4 +154,27 @@ export class OrderService {
             throw new Error(error.message);
         }
     }
+
+    async getStudent(studentName: string) {
+        try {
+            
+            let result:Student[] = [];
+
+            await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {           
+                result = await transactionalEntityManager.find( Student,
+                {
+                    where:{
+                        name:studentName
+                    }
+                });
+            })
+
+            return result;
+        } catch (error: any) {
+            console.log(error,"error");
+            throw new Error(error.message);
+        }
+    }
+
+    //=================================== ONE TO MANY END ========================================================
 }

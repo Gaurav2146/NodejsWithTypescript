@@ -128,7 +128,17 @@ class OrderController {
         }
     }
 
-    
+    async getStudent(req: Request, res: Response, next: NextFunction) {
+        try {
+            let {studentName} = req.params;
+            let result = await orderService.getStudent(studentName);
+            res.status(200).json({ result: result });
+        }
+        catch (error) {
+            console.log("Catch ERROR")
+            next(error);
+        }
+    }
 
 }
 
