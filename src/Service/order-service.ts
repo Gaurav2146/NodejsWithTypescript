@@ -125,4 +125,22 @@ export class OrderService {
             throw new Error(error.message);
         }
     }
+
+    async getStudentAndSubject(studentName: string) {
+        try {
+            let result;
+            await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
+           
+                result = await transactionalEntityManager.findBy(Student,
+                {
+                  name:studentName
+                });
+             
+            })
+            return result;
+        } catch (error: any) {
+            console.log(error,"error");
+            throw new Error(error.message);
+        }
+    }
 }

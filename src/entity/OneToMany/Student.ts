@@ -13,6 +13,7 @@ export class Student {
         cascade:true,
         eager:true
     })
+    @JoinColumn()
     subject: Subject[]
 
     @CreateDateColumn()

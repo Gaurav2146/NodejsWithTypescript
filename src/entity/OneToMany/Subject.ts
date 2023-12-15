@@ -9,7 +9,10 @@ export class Subject {
     @Column()
     name: string
 
-    @ManyToOne(() => Student,(student) => student.id)
+    @ManyToOne(() => Student,{
+        cascade:true,
+        eager:true
+    })
     @JoinColumn()
     student: Student
 
