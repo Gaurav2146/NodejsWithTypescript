@@ -11,6 +11,8 @@ import { Subject } from "../entity/OneToMany/Subject";
 
 export class OrderService {
 
+    //=================================== ONE TO ONE =====================================================
+
     async createOrder(name: string, gender: string) {
         try {
             const user = new User();
@@ -80,6 +82,10 @@ export class OrderService {
         }
     }
 
+    //=================================== ONE TO ONE END ===================================================
+
+    //=================================== MANY TO MANY =====================================================
+
     async insertCategoryAndQuenstions(question: Question, category: Category) {
         try {
             let result;
@@ -95,6 +101,9 @@ export class OrderService {
     async getCategoryAndQuenstions(questionId: number) {
         try {
             let result;
+
+            // @JoinTable() is used on Question table so in order to fetch Questions with Catergories
+            // query on Question entity because relation is from Question to Category.
             await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
                 result = await transactionalEntityManager.findBy(Question, { id: questionId });
             })
@@ -103,6 +112,8 @@ export class OrderService {
             throw new Error(error.message);
         }
     }
+
+    //=================================== MANY TO MANY END ===================================================
 
     //=================================== ONE TO MANY ========================================================
 
@@ -117,6 +128,7 @@ export class OrderService {
              subject.name = subjectName;
              subject.student = student;
 
+             //Only need to sve parent entity and child will be saved due do cascade:true present in parent entity
              student.subject=new Array(subject);
 
             return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
