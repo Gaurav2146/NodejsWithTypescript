@@ -128,7 +128,7 @@ export class OrderService {
              subject.name = subjectName;
              subject.student = student;
 
-             //Only need to sve parent entity and child will be saved due do cascade:true present in parent entity
+             //Only need to save parent entity and child will be saved due do cascade:true present in parent entity
              student.subject=new Array(subject);
 
             return await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
