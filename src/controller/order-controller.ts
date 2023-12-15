@@ -3,8 +3,8 @@ import 'reflect-metadata';
 import { autoInjectable, container } from "tsyringe";
 import { OrderService } from "../Service/order-service";
 const orderService = new OrderService();
-import { Category } from "../entity/Category ";
-import { Question } from "../entity/Question";
+import { Category } from "../entity/ManyToMany/Category ";
+import { Question } from "../entity/ManyToMany/Question";
 
 @autoInjectable()
 class OrderController {

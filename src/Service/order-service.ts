@@ -1,13 +1,13 @@
 import { EntityManager, QueryRunner, FindManyOptions } from "typeorm";
-import { User } from "../entity/User";
+import { User } from "../entity/OneToOne/User";
 import { DatabaseFactory } from "../factory/databaseFactory";
-import { Category } from "../entity/Category ";
-import { Question } from "../entity/Question";
+import { Category } from "../entity/ManyToMany/Category ";
+import { Question } from "../entity/ManyToMany/Question";
 let queryRunner: QueryRunner;
 
-import { Profile } from "../entity/Profile";
-import { Student } from "../entity/Student";
-import { Subject } from "../entity/Subject";
+import { Profile } from "../entity/OneToOne/Profile";
+import { Student } from "../entity/OneToMany/Student";
+import { Subject } from "../entity/OneToMany/Subject";
 
 export class OrderService {
 

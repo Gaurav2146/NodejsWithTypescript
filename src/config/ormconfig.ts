@@ -9,9 +9,11 @@ export const configuration:DataSourceOptions = {
     database: "typeORM",
     logging: true,
     logger: "advanced-console",
-    synchronize: true,
+    synchronize: false,
     entities: [
-        "./src/entity/*.ts"
+        "./src/entity/ManyToMany/*.ts",
+        "./src/entity/OneToMany/*.ts",
+        "./src/entity/OneToOne/*.ts"
     ]
 }
 
