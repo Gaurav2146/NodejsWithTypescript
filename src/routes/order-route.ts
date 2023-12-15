@@ -37,8 +37,11 @@ export class OrderRouter implements ApiRouter {
             
         this.router.get('/order/getStudentAndSubject/:studentName',
             (req: Request, res: Response, next: NextFunction) => this.orderController.getStudentAndSubject(req, res, next))
-            
+        
+        this.router.get('/order/getStudent/:studentName',
+            (req: Request, res: Response, next: NextFunction) => this.orderController.getStudent(req, res, next))
 
+            
     }
 }
 

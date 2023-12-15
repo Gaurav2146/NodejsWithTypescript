@@ -9,7 +9,7 @@ export const configuration:DataSourceOptions = {
     database: "typeORM",
     logging: true,
     logger: "file",
-    synchronize: true,
+    synchronize: false,
     entities: [
         "./src/entity/ManyToMany/*.ts",
         "./src/entity/OneToMany/*.ts",

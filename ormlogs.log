@@ -1403,3 +1403,445 @@
 [2023-12-15T10:13:22.874Z][QUERY]: START TRANSACTION
 [2023-12-15T10:13:22.882Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
 [2023-12-15T10:13:22.888Z][QUERY]: COMMIT
+[2023-12-15T10:16:42.544Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:16:42.702Z][QUERY]: START TRANSACTION
+[2023-12-15T10:16:42.710Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-15T10:16:42.716Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-15T10:16:42.747Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-15T10:16:42.774Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:16:42.859Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `profileId` int NULL, UNIQUE INDEX `REL_9466682df91534dd95e4dbaa61` (`profileId`), PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:16:42.944Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:16:43.019Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:16:43.147Z][QUERY]: CREATE TABLE `subject` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `studentId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:16:43.298Z][QUERY]: CREATE TABLE `student` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:16:43.394Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-15T10:16:43.543Z][QUERY]: ALTER TABLE `user` ADD CONSTRAINT `FK_9466682df91534dd95e4dbaa616` FOREIGN KEY (`profileId`) REFERENCES `profile`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-15T10:16:43.789Z][QUERY]: ALTER TABLE `subject` ADD CONSTRAINT `FK_bc372748191d476efd239a77684` FOREIGN KEY (`studentId`) REFERENCES `student`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-15T10:16:44.048Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-15T10:16:44.055Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-15T10:16:44.680Z][QUERY]: COMMIT
+[2023-12-15T10:17:31.841Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:17:31.849Z][QUERY]: START TRANSACTION
+[2023-12-15T10:17:31.875Z][QUERY]: INSERT INTO `profile`(`id`, `gender`, `photo`) VALUES (DEFAULT, ?, DEFAULT) -- PARAMETERS: ["Male"]
+[2023-12-15T10:17:31.914Z][QUERY]: SELECT `Profile`.`id` AS `Profile_id`, `Profile`.`photo` AS `Profile_photo` FROM `profile` `Profile` WHERE `Profile`.`id` = ? -- PARAMETERS: [1]
+[2023-12-15T10:17:31.925Z][QUERY]: INSERT INTO `user`(`id`, `name`, `createdAt`, `deletedAt`, `profileId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Burger",1]
+[2023-12-15T10:17:31.950Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt` FROM `user` `User` WHERE ( `User`.`id` = ? ) AND ( `User`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-15T10:17:31.976Z][QUERY]: COMMIT
+[2023-12-15T10:17:33.440Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:17:33.447Z][QUERY]: START TRANSACTION
+[2023-12-15T10:17:33.457Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["Question 1","Find Factorial of 5"]
+[2023-12-15T10:17:33.478Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Maths Question"]
+[2023-12-15T10:17:33.489Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
+[2023-12-15T10:17:33.500Z][QUERY]: COMMIT
+[2023-12-15T10:17:34.909Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:17:34.914Z][QUERY]: START TRANSACTION
+[2023-12-15T10:17:34.926Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [1]
+[2023-12-15T10:17:34.935Z][QUERY]: COMMIT
+[2023-12-15T10:17:36.214Z][QUERY]: SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`createdAt` AS `User_createdAt`, `User`.`deletedAt` AS `User_deletedAt`, `User`.`profileId` AS `User_profileId`, `User__profile`.`id` AS `User__profile_id`, `User__profile`.`gender` AS `User__profile_gender`, `User__profile`.`photo` AS `User__profile_photo` FROM `user` `User` LEFT JOIN `profile` `User__profile` ON `User__profile`.`id`=`User`.`profileId` WHERE `User`.`deletedAt` IS NULL
+[2023-12-15T10:17:37.521Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:17:37.533Z][QUERY]: START TRANSACTION
+[2023-12-15T10:17:37.543Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:17:37.565Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-15T10:17:37.576Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",1]
+[2023-12-15T10:17:37.595Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-15T10:17:37.603Z][QUERY]: COMMIT
+[2023-12-15T10:17:38.768Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-15T10:17:38.777Z][QUERY]: START TRANSACTION
+[2023-12-15T10:17:38.795Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-15T10:17:38.811Z][QUERY]: COMMIT
+[2023-12-15T10:20:45.061Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:20:45.247Z][QUERY]: START TRANSACTION
+[2023-12-15T10:20:45.258Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-15T10:20:45.266Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-15T10:20:45.306Z][QUERY]: 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+                
+[2023-12-15T10:20:45.311Z][QUERY]: SELECT * FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu` WHERE `CONSTRAINT_NAME` = 'PRIMARY'
+[2023-12-15T10:20:45.315Z][QUERY]: 
+            SELECT
+                `SCHEMA_NAME`,
+                `DEFAULT_CHARACTER_SET_NAME` as `CHARSET`,
+                `DEFAULT_COLLATION_NAME` AS `COLLATION`
+            FROM `INFORMATION_SCHEMA`.`SCHEMATA`
+            
+[2023-12-15T10:20:45.320Z][QUERY]: 
+            SELECT
+                `s`.*
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `s`
+            LEFT JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `s`.`INDEX_NAME` = `rc`.`CONSTRAINT_NAME`
+                    AND
+                    `s`.`TABLE_SCHEMA` = `rc`.`CONSTRAINT_SCHEMA`
+            WHERE
+                `s`.`INDEX_NAME` != 'PRIMARY'
+                AND
+                `rc`.`CONSTRAINT_NAME` IS NULL
+            
+[2023-12-15T10:20:45.333Z][QUERY]: 
+            SELECT
+                `kcu`.`TABLE_SCHEMA`,
+                `kcu`.`TABLE_NAME`,
+                `kcu`.`CONSTRAINT_NAME`,
+                `kcu`.`COLUMN_NAME`,
+                `kcu`.`REFERENCED_TABLE_SCHEMA`,
+                `kcu`.`REFERENCED_TABLE_NAME`,
+                `kcu`.`REFERENCED_COLUMN_NAME`,
+                `rc`.`DELETE_RULE` `ON_DELETE`,
+                `rc`.`UPDATE_RULE` `ON_UPDATE`
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu`
+            INNER JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `rc`.`CONSTRAINT_SCHEMA` = `kcu`.`CONSTRAINT_SCHEMA`
+                    AND
+                    `rc`.`TABLE_NAME` = `kcu`.`TABLE_NAME`
+                    AND
+                    `rc`.`CONSTRAINT_NAME` = `kcu`.`CONSTRAINT_NAME`
+            
+[2023-12-15T10:20:45.458Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-15T10:20:45.487Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-15T10:20:45.514Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:20:45.522Z][FAILED QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-15T10:20:45.522Z][QUERY ERROR]: Error: Table 'profile' already exists
+[2023-12-15T10:20:45.528Z][QUERY]: ROLLBACK
