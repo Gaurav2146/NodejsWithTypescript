@@ -10,7 +10,6 @@ export class Subject {
     name: string
 
     @ManyToOne(() => Student,{
-        cascade:true,
         eager:true
     })
     @JoinColumn()

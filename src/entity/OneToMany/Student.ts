@@ -11,9 +11,7 @@ export class Student {
 
     @OneToMany(() => Subject,(subject)=>subject.id,{
         cascade:true,
-        eager:true
     })
-    @JoinColumn()
     subject: Subject[]
 
     @CreateDateColumn()

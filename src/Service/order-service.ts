@@ -128,15 +128,24 @@ export class OrderService {
 
     async getStudentAndSubject(studentName: string) {
         try {
-            let result;
+            
+            let result:Subject[] = [];
+
+            // If it is OneToMany mapping, then query should be done on the entity which is Many because on that side foreign key is present.
             await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
            
-                result = await transactionalEntityManager.findBy(Student,
+                result = await transactionalEntityManager.find( Subject,
                 {
-                  name:studentName
+                    relations:{
+                        student:true
+                    },
+                    where:{
+                        student:{name:studentName}
+                    }
                 });
              
             })
+
             return result;
         } catch (error: any) {
             console.log(error,"error");
