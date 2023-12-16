@@ -93,6 +93,19 @@ class OrderController {
         }
     }
 
+    async deleteCategoryAndQuenstions(req: Request, res: Response, next: NextFunction) {
+        try {
+            let { questionId } = req.query;
+
+            let result = await orderService.deleteCategoryAndQuenstions(Number(questionId));
+            res.status(200).json({ result: result });
+        }
+        catch (error) {
+            console.log("Catch ERROR")
+            next(error);
+        }
+    }
+
     async getAllUser(req: Request, res: Response, next: NextFunction) {
         try {
             let result = await orderService.getAllUser();

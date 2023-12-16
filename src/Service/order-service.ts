@@ -113,6 +113,21 @@ export class OrderService {
         }
     }
 
+    async deleteCategoryAndQuenstions(questionId: number) {
+        try {
+            let result;
+
+            // @JoinTable() is used on Question table so in order to fetch Questions with Catergories
+            // query on Question entity because relation is from Question to Category.
+            await DatabaseFactory.getDataSource().manager.transaction("SERIALIZABLE", async (transactionalEntityManager: EntityManager) => {
+                result = await transactionalEntityManager.softDelete(Question, { id: questionId });
+            })
+            return result;
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+
     //=================================== MANY TO MANY END ===================================================
 
     //=================================== ONE TO MANY ========================================================

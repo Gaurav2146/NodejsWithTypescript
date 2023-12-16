@@ -29,6 +29,9 @@ export class OrderRouter implements ApiRouter {
         this.router.get('/order/getCategoryAndQuenstions',
             (req: Request, res: Response, next: NextFunction) => this.orderController.getCategoryAndQuenstions(req, res, next))
 
+        this.router.delete('/order/deleteCategoryAndQuenstions',
+            (req: Request, res: Response, next: NextFunction) => this.orderController.deleteCategoryAndQuenstions(req, res, next))    
+
         this.router.get('/order/getAllUser',
             (req: Request, res: Response, next: NextFunction) => this.orderController.getAllUser(req, res, next))
 

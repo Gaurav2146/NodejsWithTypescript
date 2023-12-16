@@ -4,6 +4,8 @@ import {
     Column,
     ManyToMany,
     JoinTable,
+    CreateDateColumn,
+    DeleteDateColumn,
 } from "typeorm"
 import { Category } from "./Category "
 
@@ -25,4 +27,10 @@ export class Question {
     })
     @JoinTable()
     categories: Category[]
+
+    @CreateDateColumn()
+    createdAt: Date
+
+    @DeleteDateColumn()
+    deletedAt:Date
 }

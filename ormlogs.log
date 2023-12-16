@@ -1969,3 +1969,598 @@
 [2023-12-15T10:36:33.271Z][QUERY]: START TRANSACTION
 [2023-12-15T10:36:33.285Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
 [2023-12-15T10:36:33.296Z][QUERY]: COMMIT
+[2023-12-16T05:02:39.590Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T05:02:39.621Z][QUERY]: START TRANSACTION
+[2023-12-16T05:02:39.624Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-16T05:02:39.625Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-16T05:02:39.636Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-16T05:02:39.641Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.659Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `profileId` int NULL, UNIQUE INDEX `REL_9466682df91534dd95e4dbaa61` (`profileId`), PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.691Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.702Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.712Z][QUERY]: CREATE TABLE `subject` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `studentId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.724Z][QUERY]: CREATE TABLE `student` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.735Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-16T05:02:39.765Z][QUERY]: ALTER TABLE `user` ADD CONSTRAINT `FK_9466682df91534dd95e4dbaa616` FOREIGN KEY (`profileId`) REFERENCES `profile`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T05:02:39.832Z][QUERY]: ALTER TABLE `subject` ADD CONSTRAINT `FK_bc372748191d476efd239a77684` FOREIGN KEY (`studentId`) REFERENCES `student`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T05:02:39.884Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-16T05:02:39.884Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T05:02:39.977Z][QUERY]: COMMIT
+[2023-12-16T05:11:42.197Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:11:42.198Z][QUERY]: START TRANSACTION
+[2023-12-16T05:11:42.207Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:11:42.216Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T05:11:42.221Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",1]
+[2023-12-16T05:11:42.222Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T05:11:42.225Z][QUERY]: COMMIT
+[2023-12-16T05:15:07.922Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:15:07.924Z][QUERY]: START TRANSACTION
+[2023-12-16T05:15:07.927Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:15:07.929Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-16T05:15:07.931Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",2]
+[2023-12-16T05:15:07.933Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-16T05:15:07.935Z][QUERY]: COMMIT
+[2023-12-16T05:16:23.059Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:16:23.060Z][QUERY]: START TRANSACTION
+[2023-12-16T05:16:23.064Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:16:23.067Z][QUERY]: COMMIT
+[2023-12-16T05:17:29.701Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:17:29.702Z][QUERY]: START TRANSACTION
+[2023-12-16T05:17:29.709Z][QUERY]: UPDATE `student` SET `deletedAt` = CURRENT_TIMESTAMP WHERE `name` = ? -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:17:29.712Z][QUERY]: COMMIT
+[2023-12-16T05:17:41.141Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:17:41.142Z][QUERY]: START TRANSACTION
+[2023-12-16T05:17:41.143Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:17:41.144Z][QUERY]: COMMIT
+[2023-12-16T05:17:45.678Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:17:45.679Z][QUERY]: START TRANSACTION
+[2023-12-16T05:17:45.681Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:17:45.682Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [3]
+[2023-12-16T05:17:45.684Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",3]
+[2023-12-16T05:17:45.686Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [3]
+[2023-12-16T05:17:45.687Z][QUERY]: COMMIT
+[2023-12-16T05:17:49.066Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:17:49.067Z][QUERY]: START TRANSACTION
+[2023-12-16T05:17:49.069Z][QUERY]: UPDATE `student` SET `deletedAt` = CURRENT_TIMESTAMP WHERE `name` = ? -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:17:49.071Z][QUERY]: COMMIT
+[2023-12-16T05:17:54.093Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:17:54.094Z][QUERY]: START TRANSACTION
+[2023-12-16T05:17:54.097Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:17:54.098Z][QUERY]: COMMIT
+[2023-12-16T05:17:57.114Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:17:57.115Z][QUERY]: START TRANSACTION
+[2023-12-16T05:17:57.116Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:17:57.117Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [4]
+[2023-12-16T05:17:57.119Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",4]
+[2023-12-16T05:17:57.121Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [4]
+[2023-12-16T05:17:57.123Z][QUERY]: COMMIT
+[2023-12-16T05:18:01.157Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:18:01.158Z][QUERY]: START TRANSACTION
+[2023-12-16T05:18:01.159Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:18:01.161Z][QUERY]: COMMIT
+[2023-12-16T05:18:12.701Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:18:12.703Z][QUERY]: START TRANSACTION
+[2023-12-16T05:18:12.704Z][QUERY]: UPDATE `student` SET `deletedAt` = CURRENT_TIMESTAMP WHERE `name` = ? -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:18:12.705Z][QUERY]: COMMIT
+[2023-12-16T05:18:20.040Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:18:20.041Z][QUERY]: START TRANSACTION
+[2023-12-16T05:18:20.042Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:18:20.044Z][QUERY]: COMMIT
+[2023-12-16T05:30:15.000Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:30:15.001Z][QUERY]: START TRANSACTION
+[2023-12-16T05:30:15.003Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:30:15.005Z][QUERY]: COMMIT
+[2023-12-16T05:30:18.367Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:30:18.368Z][QUERY]: START TRANSACTION
+[2023-12-16T05:30:18.369Z][QUERY]: INSERT INTO `student`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:30:18.371Z][QUERY]: SELECT `Student`.`id` AS `Student_id`, `Student`.`createdAt` AS `Student_createdAt`, `Student`.`deletedAt` AS `Student_deletedAt` FROM `student` `Student` WHERE ( `Student`.`id` = ? ) AND ( `Student`.`deletedAt` IS NULL ) -- PARAMETERS: [5]
+[2023-12-16T05:30:18.373Z][QUERY]: INSERT INTO `subject`(`id`, `name`, `createdAt`, `deletedAt`, `studentId`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT, ?) -- PARAMETERS: ["Maths",5]
+[2023-12-16T05:30:18.375Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt` FROM `subject` `Subject` WHERE ( `Subject`.`id` = ? ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: [5]
+[2023-12-16T05:30:18.376Z][QUERY]: COMMIT
+[2023-12-16T05:30:21.485Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:30:21.486Z][QUERY]: START TRANSACTION
+[2023-12-16T05:30:21.487Z][QUERY]: SELECT `Subject`.`id` AS `Subject_id`, `Subject`.`name` AS `Subject_name`, `Subject`.`createdAt` AS `Subject_createdAt`, `Subject`.`deletedAt` AS `Subject_deletedAt`, `Subject`.`studentId` AS `Subject_studentId`, `Subject__Subject_student`.`id` AS `Subject__Subject_student_id`, `Subject__Subject_student`.`name` AS `Subject__Subject_student_name`, `Subject__Subject_student`.`createdAt` AS `Subject__Subject_student_createdAt`, `Subject__Subject_student`.`deletedAt` AS `Subject__Subject_student_deletedAt`, `Subject__student`.`id` AS `Subject__student_id`, `Subject__student`.`name` AS `Subject__student_name`, `Subject__student`.`createdAt` AS `Subject__student_createdAt`, `Subject__student`.`deletedAt` AS `Subject__student_deletedAt` FROM `subject` `Subject` LEFT JOIN `student` `Subject__Subject_student` ON `Subject__Subject_student`.`id`=`Subject`.`studentId` AND (`Subject__Subject_student`.`deletedAt` IS NULL)  LEFT JOIN `student` `Subject__student` ON `Subject__student`.`id`=`Subject`.`studentId` AND (`Subject__student`.`deletedAt` IS NULL) WHERE ( (`Subject__Subject_student`.`name` = ?) ) AND ( `Subject`.`deletedAt` IS NULL ) -- PARAMETERS: ["Gaurav"]
+[2023-12-16T05:30:21.489Z][QUERY]: COMMIT
+[2023-12-16T05:35:25.078Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:35:25.080Z][QUERY]: START TRANSACTION
+[2023-12-16T05:35:25.083Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`) VALUES (DEFAULT, ?, ?) -- PARAMETERS: ["User-Data","What is your name?"]
+[2023-12-16T05:35:25.086Z][QUERY]: INSERT INTO `category`(`id`, `name`) VALUES (DEFAULT, ?) -- PARAMETERS: ["Personal-Information"]
+[2023-12-16T05:35:25.088Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
+[2023-12-16T05:35:25.090Z][QUERY]: COMMIT
+[2023-12-16T05:36:18.875Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:36:18.876Z][QUERY]: START TRANSACTION
+[2023-12-16T05:36:18.879Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [null]
+[2023-12-16T05:36:18.883Z][FAILED QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [null]
+[2023-12-16T05:36:18.883Z][QUERY ERROR]: Error: Unknown column 'NaN' in 'where clause'
+[2023-12-16T05:36:18.884Z][QUERY]: ROLLBACK
+[2023-12-16T05:37:36.336Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:37:36.337Z][QUERY]: START TRANSACTION
+[2023-12-16T05:37:36.339Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [1]
+[2023-12-16T05:37:36.340Z][QUERY]: COMMIT
+[2023-12-16T05:38:07.099Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T05:38:07.133Z][QUERY]: START TRANSACTION
+[2023-12-16T05:38:07.135Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-16T05:38:07.137Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-16T05:38:07.146Z][QUERY]: 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+                 UNION 
+                SELECT
+                    *
+                FROM
+                    `INFORMATION_SCHEMA`.`COLUMNS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+                
+[2023-12-16T05:38:07.146Z][QUERY]: SELECT * FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu` WHERE `CONSTRAINT_NAME` = 'PRIMARY'
+[2023-12-16T05:38:07.147Z][QUERY]: 
+            SELECT
+                `SCHEMA_NAME`,
+                `DEFAULT_CHARACTER_SET_NAME` as `CHARSET`,
+                `DEFAULT_COLLATION_NAME` AS `COLLATION`
+            FROM `INFORMATION_SCHEMA`.`SCHEMATA`
+            
+[2023-12-16T05:38:07.147Z][QUERY]: 
+            SELECT
+                `s`.*
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`STATISTICS`
+                WHERE
+                    `TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `s`
+            LEFT JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `s`.`INDEX_NAME` = `rc`.`CONSTRAINT_NAME`
+                    AND
+                    `s`.`TABLE_SCHEMA` = `rc`.`CONSTRAINT_SCHEMA`
+            WHERE
+                `s`.`INDEX_NAME` != 'PRIMARY'
+                AND
+                `rc`.`CONSTRAINT_NAME` IS NULL
+            
+[2023-12-16T05:38:07.147Z][QUERY]: 
+            SELECT
+                `kcu`.`TABLE_SCHEMA`,
+                `kcu`.`TABLE_NAME`,
+                `kcu`.`CONSTRAINT_NAME`,
+                `kcu`.`COLUMN_NAME`,
+                `kcu`.`REFERENCED_TABLE_SCHEMA`,
+                `kcu`.`REFERENCED_TABLE_NAME`,
+                `kcu`.`REFERENCED_COLUMN_NAME`,
+                `rc`.`DELETE_RULE` `ON_DELETE`,
+                `rc`.`UPDATE_RULE` `ON_UPDATE`
+            FROM (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`KEY_COLUMN_USAGE` `kcu`
+                WHERE
+                    `kcu`.`TABLE_SCHEMA` = 'typeorm'
+                    AND
+                    `kcu`.`TABLE_NAME` = 'question_categories_category'
+            ) `kcu`
+            INNER JOIN (
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'profile'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'user'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'category'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'subject'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'student'
+             UNION 
+                SELECT
+                    *
+                FROM `INFORMATION_SCHEMA`.`REFERENTIAL_CONSTRAINTS`
+                WHERE
+                    `CONSTRAINT_SCHEMA` = 'typeorm'
+                    AND
+                    `TABLE_NAME` = 'question_categories_category'
+            ) `rc`
+                ON
+                    `rc`.`CONSTRAINT_SCHEMA` = `kcu`.`CONSTRAINT_SCHEMA`
+                    AND
+                    `rc`.`TABLE_NAME` = `kcu`.`TABLE_NAME`
+                    AND
+                    `rc`.`CONSTRAINT_NAME` = `kcu`.`CONSTRAINT_NAME`
+            
+[2023-12-16T05:38:07.176Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T05:38:07.180Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-16T05:38:07.184Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:38:07.185Z][FAILED QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T05:38:07.185Z][QUERY ERROR]: Error: Table 'profile' already exists
+[2023-12-16T05:38:07.186Z][QUERY]: ROLLBACK
+[2023-12-16T05:38:28.585Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T05:38:44.922Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T05:38:44.923Z][QUERY]: START TRANSACTION
+[2023-12-16T05:38:44.932Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [1]
+[2023-12-16T05:38:44.938Z][QUERY]: COMMIT
+[2023-12-16T06:31:24.319Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:31:24.322Z][QUERY]: START TRANSACTION
+[2023-12-16T06:31:24.325Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` WHERE (`Question`.`id` = ?) -- PARAMETERS: [1]
+[2023-12-16T06:31:24.327Z][QUERY]: COMMIT
+[2023-12-16T06:35:19.538Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T06:37:04.251Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:37:04.252Z][QUERY]: START TRANSACTION
+[2023-12-16T06:37:04.260Z][QUERY]: ROLLBACK
+[2023-12-16T06:43:49.352Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T06:43:49.386Z][QUERY]: START TRANSACTION
+[2023-12-16T06:43:49.388Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-16T06:43:49.390Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-16T06:43:49.398Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-16T06:43:49.402Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.416Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `profileId` int NULL, UNIQUE INDEX `REL_9466682df91534dd95e4dbaa61` (`profileId`), PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.446Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.455Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.464Z][QUERY]: CREATE TABLE `subject` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `studentId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.474Z][QUERY]: CREATE TABLE `student` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.483Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-16T06:43:49.514Z][QUERY]: ALTER TABLE `user` ADD CONSTRAINT `FK_9466682df91534dd95e4dbaa616` FOREIGN KEY (`profileId`) REFERENCES `profile`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T06:43:49.561Z][QUERY]: ALTER TABLE `subject` ADD CONSTRAINT `FK_bc372748191d476efd239a77684` FOREIGN KEY (`studentId`) REFERENCES `student`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T06:43:49.602Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-16T06:43:49.602Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T06:43:49.689Z][QUERY]: COMMIT
+[2023-12-16T06:48:33.685Z][QUERY]: SELECT VERSION() AS `version`
+[2023-12-16T06:48:33.716Z][QUERY]: START TRANSACTION
+[2023-12-16T06:48:33.719Z][QUERY]: SELECT DATABASE() AS `db_name`
+[2023-12-16T06:48:33.720Z][QUERY]: SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'profile' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'user' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'category' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'subject' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'student' UNION SELECT `TABLE_SCHEMA`, `TABLE_NAME` FROM `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'question_categories_category'
+[2023-12-16T06:48:33.727Z][QUERY]: SELECT * FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA` = 'typeORM' AND `TABLE_NAME` = 'typeorm_metadata'
+[2023-12-16T06:48:33.734Z][QUERY]: CREATE TABLE `profile` (`id` int NOT NULL AUTO_INCREMENT, `gender` varchar(255) NOT NULL, `photo` varchar(255) NOT NULL DEFAULT 'PROFILE IMAGE', PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.749Z][QUERY]: CREATE TABLE `user` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `profileId` int NULL, UNIQUE INDEX `REL_9466682df91534dd95e4dbaa61` (`profileId`), PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.778Z][QUERY]: CREATE TABLE `category` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.787Z][QUERY]: CREATE TABLE `question` (`id` int NOT NULL AUTO_INCREMENT, `title` varchar(255) NOT NULL, `text` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.796Z][QUERY]: CREATE TABLE `subject` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, `studentId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.807Z][QUERY]: CREATE TABLE `student` (`id` int NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `deletedAt` datetime(6) NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.819Z][QUERY]: CREATE TABLE `question_categories_category` (`questionId` int NOT NULL, `categoryId` int NOT NULL, INDEX `IDX_21433e6d9a0e7e79c36b4ae69f` (`questionId`), INDEX `IDX_9cf04f10454634f887ade56562` (`categoryId`), PRIMARY KEY (`questionId`, `categoryId`)) ENGINE=InnoDB
+[2023-12-16T06:48:33.851Z][QUERY]: ALTER TABLE `user` ADD CONSTRAINT `FK_9466682df91534dd95e4dbaa616` FOREIGN KEY (`profileId`) REFERENCES `profile`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T06:48:33.890Z][QUERY]: ALTER TABLE `subject` ADD CONSTRAINT `FK_bc372748191d476efd239a77684` FOREIGN KEY (`studentId`) REFERENCES `student`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T06:48:33.921Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_21433e6d9a0e7e79c36b4ae69fd` FOREIGN KEY (`questionId`) REFERENCES `question`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+[2023-12-16T06:48:33.921Z][QUERY]: ALTER TABLE `question_categories_category` ADD CONSTRAINT `FK_9cf04f10454634f887ade565622` FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+[2023-12-16T06:48:34.074Z][QUERY]: COMMIT
+[2023-12-16T06:48:49.466Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:48:49.470Z][QUERY]: START TRANSACTION
+[2023-12-16T06:48:49.479Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["User-Data","What is your name?"]
+[2023-12-16T06:48:49.485Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt` FROM `question` `Question` WHERE ( `Question`.`id` = ? ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T06:48:49.489Z][QUERY]: INSERT INTO `category`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Personal-Information"]
+[2023-12-16T06:48:49.491Z][QUERY]: SELECT `Category`.`id` AS `Category_id`, `Category`.`createdAt` AS `Category_createdAt`, `Category`.`deletedAt` AS `Category_deletedAt` FROM `category` `Category` WHERE ( `Category`.`id` = ? ) AND ( `Category`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T06:48:49.493Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [1,1]
+[2023-12-16T06:48:49.496Z][QUERY]: COMMIT
+[2023-12-16T06:48:53.360Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:48:53.362Z][QUERY]: START TRANSACTION
+[2023-12-16T06:48:53.365Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name`, `Question__categories`.`createdAt` AS `Question__categories_createdAt`, `Question__categories`.`deletedAt` AS `Question__categories_deletedAt` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` AND (`Question__categories`.`deletedAt` IS NULL) WHERE ( (`Question`.`id` = ?) ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T06:48:53.367Z][QUERY]: COMMIT
+[2023-12-16T06:48:56.919Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:48:56.920Z][QUERY]: START TRANSACTION
+[2023-12-16T06:48:56.924Z][QUERY]: UPDATE `question` SET `deletedAt` = CURRENT_TIMESTAMP WHERE `id` = ? -- PARAMETERS: [1]
+[2023-12-16T06:48:56.928Z][QUERY]: COMMIT
+[2023-12-16T06:49:02.224Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:49:02.226Z][QUERY]: START TRANSACTION
+[2023-12-16T06:49:02.228Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name`, `Question__categories`.`createdAt` AS `Question__categories_createdAt`, `Question__categories`.`deletedAt` AS `Question__categories_deletedAt` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` AND (`Question__categories`.`deletedAt` IS NULL) WHERE ( (`Question`.`id` = ?) ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T06:49:02.229Z][QUERY]: COMMIT
+[2023-12-16T06:49:08.379Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:49:08.380Z][QUERY]: START TRANSACTION
+[2023-12-16T06:49:08.381Z][QUERY]: INSERT INTO `question`(`id`, `title`, `text`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["User-Data","What is your name?"]
+[2023-12-16T06:49:08.383Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt` FROM `question` `Question` WHERE ( `Question`.`id` = ? ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-16T06:49:08.385Z][QUERY]: INSERT INTO `category`(`id`, `name`, `createdAt`, `deletedAt`) VALUES (DEFAULT, ?, DEFAULT, DEFAULT) -- PARAMETERS: ["Personal-Information"]
+[2023-12-16T06:49:08.387Z][QUERY]: SELECT `Category`.`id` AS `Category_id`, `Category`.`createdAt` AS `Category_createdAt`, `Category`.`deletedAt` AS `Category_deletedAt` FROM `category` `Category` WHERE ( `Category`.`id` = ? ) AND ( `Category`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-16T06:49:08.389Z][QUERY]: INSERT INTO `question_categories_category`(`questionId`, `categoryId`) VALUES (?, ?) -- PARAMETERS: [2,2]
+[2023-12-16T06:49:08.390Z][QUERY]: COMMIT
+[2023-12-16T06:49:11.887Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:49:11.889Z][QUERY]: START TRANSACTION
+[2023-12-16T06:49:11.891Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name`, `Question__categories`.`createdAt` AS `Question__categories_createdAt`, `Question__categories`.`deletedAt` AS `Question__categories_deletedAt` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` AND (`Question__categories`.`deletedAt` IS NULL) WHERE ( (`Question`.`id` = ?) ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [1]
+[2023-12-16T06:49:11.893Z][QUERY]: COMMIT
+[2023-12-16T06:49:35.136Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:49:35.137Z][QUERY]: START TRANSACTION
+[2023-12-16T06:49:35.139Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name`, `Question__categories`.`createdAt` AS `Question__categories_createdAt`, `Question__categories`.`deletedAt` AS `Question__categories_deletedAt` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` AND (`Question__categories`.`deletedAt` IS NULL) WHERE ( (`Question`.`id` = ?) ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-16T06:49:35.141Z][QUERY]: COMMIT
+[2023-12-16T06:49:39.023Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:49:39.024Z][QUERY]: START TRANSACTION
+[2023-12-16T06:49:39.025Z][QUERY]: UPDATE `question` SET `deletedAt` = CURRENT_TIMESTAMP WHERE `id` = ? -- PARAMETERS: [1]
+[2023-12-16T06:49:39.027Z][QUERY]: COMMIT
+[2023-12-16T06:49:43.146Z][QUERY]: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+[2023-12-16T06:49:43.148Z][QUERY]: START TRANSACTION
+[2023-12-16T06:49:43.149Z][QUERY]: SELECT `Question`.`id` AS `Question_id`, `Question`.`title` AS `Question_title`, `Question`.`text` AS `Question_text`, `Question`.`createdAt` AS `Question_createdAt`, `Question`.`deletedAt` AS `Question_deletedAt`, `Question__categories`.`id` AS `Question__categories_id`, `Question__categories`.`name` AS `Question__categories_name`, `Question__categories`.`createdAt` AS `Question__categories_createdAt`, `Question__categories`.`deletedAt` AS `Question__categories_deletedAt` FROM `question` `Question` LEFT JOIN `question_categories_category` `Question_Question__categories` ON `Question_Question__categories`.`questionId`=`Question`.`id` LEFT JOIN `category` `Question__categories` ON `Question__categories`.`id`=`Question_Question__categories`.`categoryId` AND (`Question__categories`.`deletedAt` IS NULL) WHERE ( (`Question`.`id` = ?) ) AND ( `Question`.`deletedAt` IS NULL ) -- PARAMETERS: [2]
+[2023-12-16T06:49:43.151Z][QUERY]: COMMIT

@@ -5,11 +5,11 @@ export const configuration:DataSourceOptions = {
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "Gau@9931",
+    password: "root",
     database: "typeORM",
     logging: true,
     logger: "file",
-    synchronize: false,
+    synchronize: true,
     entities: [
         "./src/entity/ManyToMany/*.ts",
         "./src/entity/OneToMany/*.ts",
